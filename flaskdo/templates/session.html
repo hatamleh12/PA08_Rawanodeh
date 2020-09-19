@@ -1,0 +1,17 @@
+<p><b>The value of the 'user' key in the session is:</b></p>
+{{session['user']}}
+<p><b>The value of the 'is_logged_in' key in the session is:</b></p>
+{{session['is_logged_in']}}
+<p><b>The value of the 'my_special_variable' key in the session is:</b></p>
+{{session['my_special_variable']}}
+
+<p>
+  <b
+    >Hello, {{session['user']['first_name'] | capitalize}}
+    {{session['user']['last_name']| capitalize}}!</b
+  >
+</p>
+
+<p>
+  <b>Your username is: {{session['user']['username']}}</b>
+</p>

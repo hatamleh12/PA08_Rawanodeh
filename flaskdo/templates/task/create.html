@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+<!-- header title block -->
+{% block header_title%}Create a Task{% endblock%}
+<!-- header subtitle block -->
+{% block header_subtitle %} Create a new task!{% endblock %}
+<!-- actions block -->
+{% block actions %} {% endblock %}
+
+<!-- Content block -->
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form class="form-signin" method="POST">
+        <label for="inputTaskTitle" class="sr-only">Task Title</label>
+        <input
+          type="text"
+          id="inputTaskTitle"
+          name="task-title"
+          class="form-control mb-3"
+          placeholder="Enter a name for your task list"
+          required=""
+          autofocus=""
+        />
+        <label for="textAreaTaskDescription" class="sr-only"
+          >Task Description</label
+        >
+        <textarea
+          id="textAreaTaskDescription"
+          name="task-description"
+          class="form-control mb-3"
+          placeholder="Enter a description for your task list"
+        >
+        </textarea>
+        <button class="btn btn-lg btn-secondary btn-block" type="submit">
+          Create Task
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

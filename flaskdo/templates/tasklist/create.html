@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+<!-- header title block -->
+{% block header_title%}Create a Task List{% endblock%}
+<!-- header subtitle block -->
+{% block header_subtitle %} Create and view your task lists!{% endblock %}
+<!-- actions block -->
+{% block actions %} {% endblock %}
+
+<!-- Content block -->
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form class="form-signin" method="POST">
+        <label for="inputTaskListName" class="sr-only">Task List Name</label>
+        <input
+          type="text"
+          id="inputTaskListName"
+          name="list-name"
+          class="form-control mb-3"
+          placeholder="Enter a name for your task list"
+          required=""
+          autofocus=""
+        />
+        <label for="textAreaTaskListDescription" class="sr-only"
+          >Task List Description</label
+        >
+        <textarea
+          id="textAreaTaskListDescription"
+          name="list-description"
+          class="form-control mb-3"
+          placeholder="Enter a description for your task list"
+        >
+        </textarea>
+        
+
+        <button class="btn btn-lg btn-secondary btn-block" type="submit">
+          Create Task List
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
