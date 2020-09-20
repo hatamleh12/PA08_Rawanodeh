@@ -69,9 +69,60 @@ def delete_tasklist(tasklist_id):
 def tasklists():   
     # create a list to store the tasklists
     tasklists = TaskList.query.filter(TaskList.owner_id == session['user']['id'])
+
     
     # render the task lists template
     return render_template('tasklist/task-lists.html', tasklists = tasklists)
+
+@bp.route('/search', methods=['GET','POST'])
+def search(title, descrption):
+
+    title = request.form['title']
+    descrption = request.form['descrption']
+
+    search_results = task.search(title)
+    search_results = task.search(descrption)
+
+    tasklist = TaskList.query.get_or_404(title, descrption)
+    return render_template('search/search.html',title=title,descrption=descrption)
+   
+    
+   
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    # task = Task(title = title, description = description).all()
+    return render_template('search/search.html', tasklists = tasklists)
 
 
 # @bp.route('/user/update/<int:user_id>', methods=['POST'])

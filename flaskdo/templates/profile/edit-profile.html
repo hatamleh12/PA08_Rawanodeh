@@ -76,12 +76,34 @@
       name="address"
       value="{{user['address']}}"
       class="form-control mb-3"
-      placeholder="Address"
+      placeholder="address"
       autofocus=""
     />
+    <label for="username" class="">username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      value="{{user['username']}}"
+      class="form-control mb-3"
+      placeholder="username"
+      autofocus=""
+    />
+    <label for="email" class="">email</label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      value=""
+      class="form-control mb-3"
+      placeholder="email"
+      autofocus=""
+    />
+    
+
     <button class="mt-3 btn btn-lg btn-primary btn-block" type="submit">
       Update Profile
     </button>
-  </form>
+  </form>0
 </div>
 {% endblock content %}

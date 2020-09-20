@@ -68,29 +68,48 @@ def logout():
     # redirect to /
     return redirect(url_for('home.index'))
 
-@bp.route('/user/<int:user_id>')
-def view_user(user_id):
-    if request.method == 'GET':
+@bp.route('/user')
+def view_user():
+   user = User.query.get_or_404(session['user']['id'])
+   return render_template('profile/profile.html' ,user=user)
 
-# render the login template
-        return render_template('profile/profile.html')
+
+@bp.route('/edit-profile',methods=['GET','POST'])
+def edit_user():
+
+    user = User.query.get_or_404(session['user']['id'])
+    if request.method=='GET':
+
+        return render_template('profile/edit-profile.html',user=user)
+
     else:
-# read values from the login form
+
         username = request.form['username']
-        user = User.query.get_or_404(user_id)
-        return render_template('profile/profile.html', user_id = user_id )
-   
-    
-@bp.route('/user/delete/<int:user_id>')
-def delete_user(user_id):
+        email = request.form['email']
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        address = request.form['address']
+
+        user.username = username
+        user.email = email
+        user.first_name =   first_name
+        user.last_name = last_name
+        user.address =  address
+        user.save()
+
+    return redirect(url_for('user.view_user'))
+
+ 
+@bp.route('/user/delete')
+def delete_user():
      # retrieve the user
-    user = User.query.get_or_404(user_id)
+    user = User.query.get_or_404(session['user']['id'])
     
     # delete the user
     user.remove()
     
     # redirect the user to the tasklists
-    return render_template('login/signup.html',user_id=user_id)
+    return render_template('profile/profile.html',user=user)
 
 
 

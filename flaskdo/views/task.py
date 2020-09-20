@@ -34,3 +34,4 @@ def delete_task(tasklist_id, task_id):
 
     # redirect to the index
     return redirect(url_for('tasklists.view_tasklist', tasklist_id = tasklist_id))
+
