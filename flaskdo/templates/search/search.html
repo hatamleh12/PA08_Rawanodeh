@@ -1,39 +1,34 @@
 {% extends 'base.html' %}
-<!-- Override page title from the template -->
-{% block title %}Add Task List{% endblock %}
+<!-- header title block -->
+{% block header_title%}Search{% endblock%}
+<!-- header subtitle block -->
+{% block header_subtitle %} Search for any task by title or descrption{% endblock %}
+<!-- actions block -->
+{% block actions %} {% endblock %}
 
 <!-- Content block -->
 {% block content %}
-<form class="form-inline my-2 my-lg-0" method="POST" action="">
-  <input
-    class="form-control mr-sm-2"
-    type="search"
-    name="tasklists"
-    placeholder="Search"
-    aria-label="Search"
-  />
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-12 order-md-1">
-        <form class="form-signin" method="POST">
-          <label for="inputTaskListName" class="sr-only">Search Task</label>
-          <input
-            type="text"
-            id="inputTaskListName"
-            name="title"
-            class="form-control mb-3"
-            placeholder="Enter a name for your task list"
-            required=""
-            autofocus=""
-          />
-            
-          <button class="btn btn-lg btn-secondary btn-block" type="submit">
-            Search
-          </button>
-        </form>
-      </div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form class="form-signin" method="POST">
+        <label for="inputSearchKeyword" >Search Keyword</label>
+        <input
+          type="text"
+          id="inputSearchKeyword"
+          name="search-keyword"
+          class="form-control mb-3"
+          placeholder="Enter search keyword"
+          required=""
+          autofocus=""
+        />
+        
+        <button class="btn btn-lg btn-secondary btn-block" type="submit">
+          Search
+        </button>
+      </form>
     </div>
   </div>
-  
-</form>
-{% endcontent %}
+</div>
+
+{% endblock content %}

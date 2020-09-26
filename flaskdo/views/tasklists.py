@@ -46,11 +46,32 @@ def view_tasklist(tasklist_id):
     tasks = Task.query.filter(Task.tasklist_id == tasklist_id).all()
     return render_template('tasklist/view.html', tasklist = tasklist, tasks = tasks)
 
-@bp.route('/tasklist/update/<string:tasklist_id>')
+@bp.route('/tasklist/update/<tasklist_id>',methods=['GET','POST'])
 @login_required
 def update_tasklist(tasklist_id):
-    pass
 
+    tasklist = TaskList.query.get_or_404(tasklist_id)
+
+    # if the tasklist was found
+    if tasklist:
+        
+        if request.method == 'GET':
+            # render the update list form with pre-populated values
+            return render_template('tasklist/update-list.html',tasklist=tasklist )
+        else:
+
+            # read the values from the update list form
+            name = request.form['list-name']
+            description = request.form['list-description']
+
+            tasklist.name = name
+            tasklist.description = description
+
+            tasklist.save()
+           
+            # redirect to the 'view_list' view
+            return redirect(url_for('tasklists.view_tasklist', tasklist_id=tasklist_id))
+    
 @bp.route('/tasklist/delete/<string:tasklist_id>')
 @login_required
 def delete_tasklist(tasklist_id):
@@ -75,63 +96,102 @@ def tasklists():
     return render_template('tasklist/task-lists.html', tasklists = tasklists)
 
 @bp.route('/search', methods=['GET','POST'])
-def search(title, descrption):
+def search():
+    if request.method=='GET':
+        return render_template('search/search.html')
+    else:    
 
-    title = request.form['title']
-    descrption = request.form['descrption']
+        search_keyword = request.form['search-keyword']
 
-    search_results = task.search(title)
-    search_results = task.search(descrption)
+        # search_results = Task.query.filter(Task.title.like('%' + search_keyword+ '%')).all()
+        search_results = Task.query.filter(
+            {
+                '$or': [
+                    {Task.title: {"$regex": search_keyword}},
+                    {Task.description: {"$regex": search_keyword}}
+                ]       
+            }
+            ).all()
 
-    tasklist = TaskList.query.get_or_404(title, descrption)
-    return render_template('search/search.html',title=title,descrption=descrption)
-   
+        print(search_results,search_keyword)
+          
+        return render_template('search/results.html',results=search_results,keyword=search_keyword)
+
+@bp.route('/favorites' ,methods=['GET'])
+def view_favorites():
+
+    if request.method=='GET':
+        favorites_tasklists = TaskList.query.filter(
+            {
+                '$and': [
+                    {TaskList.owner_id:session['user']['id'] },
+                    {TaskList.is_favorite:True}
+                ]       
+            }
+            ).all()
+
+
+        return render_template('tasklist/favorites.html',tasklists=favorites_tasklists)
+
+@bp.route('/private' ,methods=['GET'])
+def view_private():
+
+    if request.method=='GET':
+        private_tasklists = TaskList.query.filter(
+            {
+                '$and': [
+                    {TaskList.owner_id:session['user']['id'] },
+                    {TaskList.is_private:True}
+                ]       
+            }
+            ).all()
+
+
+        return render_template('tasklist/private.html',tasklists=private_tasklists)
+
+
+
+@bp.route('/favorite/<tasklist_id>')    
+def set_favorite(tasklist_id):
     
-   
+    tasklist =TaskList.query.get_or_404(tasklist_id)
 
+    if tasklist.is_favorite == True:
 
+        tasklist.is_favorite = False
+    else:
+        tasklist.is_favorite = True
+
+    tasklist.save()
+    return redirect('/favorites')  
+
+@bp.route('/tasklist/private/<tasklist_id>',methods=['GET','POST'])    
+def mark_private(tasklist_id):
+
+    tasklist =TaskList.query.get_or_404(tasklist_id)
+
+    if tasklist.is_private == True :
+
+        tasklist.is_private = False
+    else:
+
+        tasklist.is_private = True
+
+    tasklist.save()
+
+    return redirect('/private')   
+
+@bp.route('/overdue/tasklist/<tasklist_id>', methods =['GET'])
+@login_required
+def view_overdue(tasklist_id  ):
+    tasklists = TaskList.query.filter(TaskList.owner_id == session['user']['id'])
+    # if request.method == 'GET':
+    #     return render_template('tasklist/overdue.html',tasklists=tasklists)
+    print(tasklists)
+            
+    return render_template('index.html', tasklists =tasklists , tasklist_id =tasklist_id )
 
     
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    # task = Task(title = title, description = description).all()
-    return render_template('search/search.html', tasklists = tasklists)
-
-
-# @bp.route('/user/update/<int:user_id>', methods=['POST'])
-# def update_user(user_id):
-#     user = User.query.get(user_id)
-#     form = UserForm()
-#     if form.validate_on_submit():
-#         form.instance = user
-#         form.save()
-#         return redirect(url_for('list_user'))
-#     form = UserForm(document=user)
-#     return render_template('/user/edit.html', form=form, user=user)
+ 

@@ -71,6 +71,7 @@ def logout():
 @bp.route('/user')
 def view_user():
    user = User.query.get_or_404(session['user']['id'])
+     
    return render_template('profile/profile.html' ,user=user)
 
 
@@ -111,15 +112,3 @@ def delete_user():
     # redirect the user to the tasklists
     return render_template('profile/profile.html',user=user)
 
-
-
-# @bp.route('/user/update/<int:user_id>', methods=['POST'])
-# def update_user(user_id):
-#     user = User.query.get(user_id)
-#     form = UserForm()
-#     if form.validate_on_submit():
-#         form.instance = user
-#         form.save()
-#         return redirect(url_for('list_user'))
-#     form = UserForm(document=user)
-#     return render_template('/user/edit.html', form=form, user=user)

@@ -18,6 +18,8 @@ intialize_db_config(app)
 def hello():
     return 'Hello, World!'
 
+
+
 @app.route('/showsession')
 def show_session():
     return render_template('session.html')

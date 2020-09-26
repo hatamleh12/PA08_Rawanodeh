@@ -1,8 +1,23 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container-fluid">
-  <h1 class="py-4">{{task['title']}}</h1>
-  <h4 class="py-4">{{task['description']}}</h4>
-  <h4 class="py-4">{{task['TIMESTAMP']}}</h4>
+<div class="row justify-content-between">
+  <div class="col-md-12 mb-3">
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Time</th>
+        </tr>
+      </thead>
+      <thead>
+        <tr>
+          <th scope="col">{{task['title']}}</th>
+          <th scope="col">{{task['description']}}</th>
+          <th scope="col">{{task['created_at']}}</th>
 
-</div>
+        </tr>
+      </thead>
+      
 {% endblock%}
+

@@ -31,22 +31,7 @@
     >
 {{task['description']}}</textarea
     >
-
-    <label for="prioritySelect">Priority</label>
-    <select id="prioritySelect" name="prioritySelect" class="form-control mb-3">
-      <option selected>Choose a Priorty...</option>
-      {% for priority_value, priority_name in priorities.items() %}
-      <option value="{{priority_value}}">{{priority_name | capitalize}}</option>
-      {% endfor %}
-    </select>
-
-    <label for="taskListSelect">Task List</label>
-    <select id="taskListSelect" name="taskListSelect" class="form-control mb-3">
-      <option selected>Choose a Task List...</option>
-      {% for list in tasklists %}
-      <option value="{{list['id']}}">{{list['name'] | capitalize}}</option>
-      {% endfor %}
-    </select>
+    
     <button class="mt-3 btn btn-lg btn-primary btn-block" type="submit">
       Update Task
     </button>

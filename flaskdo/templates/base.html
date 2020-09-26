@@ -37,15 +37,22 @@
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('tasklists.tasklists')}}"
               >Lists</a
-            >
+          >
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="">Tasks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('tasklists.search')}}">Search Task</a>
+            <a class="nav-link active" href="{{url_for('tasklists.search')}}">Search</a>
           </li>
-        </ul>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('tasklists.view_favorites')}}">Favorites</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="">Private List</a>
+          </li>
+          
+        </ul> 
       </div>
       <ul class="navbar-nav ml-md-auto">
         <li class="nav-item dropdown">
@@ -102,11 +109,7 @@
         </div>
         {% endblock %}
       </div>
-      <script
-        async=""
-        src="https://cdn.carbonads.com/carbon.js?serve=CKYIKKJL&amp;placement=getbootstrapcom"
-        id="_carbonads_js"
-      ></script>
+      
     </header>
 
     <!-- main section -->

@@ -7,4 +7,7 @@ class TaskList(db.Document):
     description = db.StringField()
     owner_id = db.StringField()
     created_at = db.DateTimeField(default=datetime.utcnow())
+    is_favorite = db.BoolField(default=False)
+    is_private = db.BoolField(default=False)
+
 

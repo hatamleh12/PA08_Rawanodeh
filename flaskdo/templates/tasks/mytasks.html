@@ -27,7 +27,7 @@
             <td>{{task.name}}</td>
             <td>
               <a
-                href="{{url_for('task.view_task', task_id= task.id)}}"
+                href="{{url_for('task.view_task', tasklist_id = tasklist['mongo_id'], task_id = task.mongo_id)}}"
                 class="btn btn-primary"
                 ><svg
                   width="1em"
@@ -44,7 +44,7 @@
                   /></svg
               ></a>
               <a
-                href="{{url_for('task.update_task', task_id= task.id)}}"
+                href="{{url_for('task.update_task', tasklist_id = tasklist['mongo_id'], task_id = task.mongo_id)}}"
                 class="btn btn-primary"
                 ><svg
                   width="1em"
